@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>__TITLE__</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f7fa;
+      padding: 2rem;
+      text-align: center;
+    }
+    canvas {
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+    .controls {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>__TITLE__</h2>
+
+  <div class="controls">
+    <label><input type="radio" name="chartType" value="bar" checked> Bar</label>
+    <label><input type="radio" name="chartType" value="pie"> Pie</label>
+    <label><input type="radio" name="chartType" value="line"> Line</label>
+  </div>
+
+  <canvas id="myChart" width="700" height="400"></canvas>
+
+  <script>
+    const labels = __LABELS__;
+    const datasets = __DATASETS__;
+    let chart;
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    function renderChart(type) {
+      if (chart) chart.destroy();
+      chart = new Chart(ctx, {
+        type,
+        data: {
+          labels,
+          datasets: [{
+            label: 'Dataset',
+            data: datasets[type],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(255, 206, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(153, 102, 255, 0.5)',
+              'rgba(255, 159, 64, 0.5)'
+            ],
+            borderColor: 'rgba(0,0,0,0.1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+          },
+          scales: type === 'pie' ? {} : {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    // Initial chart
+    renderChart('bar');
+
+    // Listen to chart type change
+    document.querySelectorAll('input[name="chartType"]').forEach(input => {
+      input.addEventListener('change', (e) => {
+        renderChart(e.target.value);
+      });
+    });
+  </script>
+</body>
+</html>

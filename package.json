@@ -1,0 +1,21 @@
+{
+  "name": "data-visualiser-node",
+  "version": "1.0.6",
+  "description": "This package in to visualise your data set in different chart format",
+  "main": "index.js",
+  "scripts": {
+    "start": "node demo.js"
+  },
+  "keywords": [
+    "chart",
+    "nodejs",
+    "visualization",
+    "chartjs"
+  ],
+  "author": "Varun Chaturvedi",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "open": "^8.4.2"
+  }
+}
